@@ -7,12 +7,12 @@
     "prepare": "nitro prepare",
     "preview": "node .output/server/index.mjs"
   },
-  "devDependencies": {
-    "nitropack": "latest"
-  },
   "dependencies": {
     "@trpc/server": "11.0.0-rc.477",
     "trpc-nitro-adapter": "^0.7.3",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "nitropack": "latest"
   }
 }

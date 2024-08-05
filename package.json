@@ -2,16 +2,21 @@
   "name": "nitro-trpc",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
   "scripts": {
     "dev": "concurrently -n client,server -c \"cyan.bgBlack.bold,magenta.bgBlack.bold\" \"pnpm run dev:client\" \"pnpm run dev:server\"",
     "dev:client": "pnpm --filter client dev",
     "dev:server": "pnpm --filter server dev"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "@eslint-react/eslint-plugin": "^1.8.2",
+    "@sxzz/eslint-config": "^3.16.3",
+    "concurrently": "^8.2.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "unocss": "^0.61.9"
   }
 }
