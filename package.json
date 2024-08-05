@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently -n client,server -c \"cyan.bgBlack.bold,magenta.bgBlack.bold\" \"pnpm run dev:client\" \"pnpm run dev:server\"",
+    "dev:client": "pnpm --filter client dev",
+    "dev:server": "pnpm --filter server dev"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
