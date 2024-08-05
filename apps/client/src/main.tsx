@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { httpBatchLink } from '@trpc/client';
 
-
+import 'virtual:uno.css'
 import App from './App.tsx'
 import './index.css'
 import { trpc } from './trpc/index.ts';

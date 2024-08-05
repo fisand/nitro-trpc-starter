@@ -8,8 +8,6 @@ function App() {
   const [count, setCount] = useState(0)
   const userList = trpc.userList.useQuery()
 
-  console.log(userList.data)
-
   return (
     <>
       <div>
@@ -32,6 +30,14 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <div className='flex items-center gap-2'>
+        {
+          userList.data?.map((user) => <button key={user.id} className='py-1.5 px-3 bg-blue-400 text-white rounded shadow shadow-blue-200 active:translate-y-.15'>
+            {user.name}
+          </button>)
+        }
+      </div>
     </>
   )
 }
