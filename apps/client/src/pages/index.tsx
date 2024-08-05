@@ -6,6 +6,7 @@ import { trpc } from '../trpc'
 const HomePage = () => {
   const [count, setCount] = useState(0)
   const userList = trpc.userList.useQuery()
+  const createUser = trpc.userCreate.useMutation()
 
   return (
     <div className="h-screen w-screen flex-col-center gap-5">
@@ -39,6 +40,17 @@ const HomePage = () => {
           </button>
         ))}
       </div>
+
+      <button
+        type="button"
+        onClick={async () => {
+          await createUser.mutateAsync({ name: `User ${(Math.random() * 100).toFixed(0)}` })
+          await userList.refetch()
+        }}
+        className="border-gray"
+      >
+        Create random user
+      </button>
     </div>
   )
 }

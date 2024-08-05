@@ -1,11 +1,7 @@
-import { defineNitroTRPCEventHandler } from 'trpc-nitro-adapter'
+import { createNitroAdapter } from '~/adapter'
 
 import { appRouter } from '../trpc/router'
 
-export default defineNitroTRPCEventHandler({
+export default createNitroAdapter({
   router: appRouter,
-  createContext: () => {
-    // Return your custom defined context here:
-    return {}
-  },
 })

@@ -20,12 +20,17 @@ export const appRouter = t.router({
     })
     return user
   }),
-  // userCreate: t.procedure.input(z.object({ name: z.string().min(1) })).mutation((opts) => {
-  //   const { input } = opts
-  //   const user = db.user.create(input)
+  userCreate: t.procedure.input(z.object({ name: z.string().min(1) })).mutation(async (opts) => {
+    const { input } = opts
 
-  //   return user
-  // }),
+    const user = await prisma.user.create({
+      data: {
+        name: input.name,
+      },
+    })
+
+    return user
+  }),
 })
 
 export type AppRouter = typeof appRouter

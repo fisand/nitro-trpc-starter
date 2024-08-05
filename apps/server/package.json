@@ -11,8 +11,9 @@
   "dependencies": {
     "@prisma/client": "5.17.0",
     "@trpc/server": "11.0.0-rc.477",
+    "h3": "^1.12.0",
     "prisma": "^5.17.0",
-    "trpc-nitro-adapter": "^0.7.3",
+    "ufo": "^1.5.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {

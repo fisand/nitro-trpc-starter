@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "concurrently -n client,server -c \"cyan.bgBlack.bold,magenta.bgBlack.bold\" \"pnpm run dev:client\" \"pnpm run dev:server\"",
     "dev:client": "pnpm --filter client dev",
-    "dev:server": "pnpm --filter server dev"
+    "dev:server": "pnpm --filter server dev",
+    "build:client": "pnpm --filter client build",
+    "build:server": "pnpm --filter server build"
   },
   "devDependencies": {
     "@eslint-react/eslint-plugin": "^1.8.2",
