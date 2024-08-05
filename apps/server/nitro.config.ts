@@ -1,4 +1,8 @@
 //https://nitro.unjs.io/config
 export default defineNitroConfig({
-  srcDir: "./",
-});
+  srcDir: './',
+  output: {
+    dir: '../../.output',
+  },
+  preset: 'node-cluster',
+})

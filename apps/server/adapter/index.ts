@@ -1,8 +1,7 @@
 import { type AnyTRPCRouter, TRPCError } from '@trpc/server'
 import { incomingMessageToRequest, type IncomingMessageWithBody } from '@trpc/server/adapters/node-http'
 import { resolveResponse } from '@trpc/server/http'
-import { type EventHandlerRequest, type H3Event, isMethod, readBody, setHeader, setResponseStatus } from 'h3'
-import { createURL } from 'ufo'
+import { type EventHandlerRequest, type H3Event, readBody, setHeader, setResponseStatus } from 'h3'
 
 const getPath = (event: H3Event): string => {
   const params = event.context.params

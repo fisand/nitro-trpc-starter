@@ -6,7 +6,7 @@
     "dev": "nitro dev",
     "generate": "prisma generate",
     "prepare": "nitro prepare",
-    "preview": "node .output/server/index.mjs"
+    "preview": "node ./scripts/preview.cjs"
   },
   "dependencies": {
     "@prisma/client": "5.17.0",

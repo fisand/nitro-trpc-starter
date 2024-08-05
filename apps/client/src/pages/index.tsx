@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toast } from 'sonner'
 
 import reactLogo from '../assets/react.svg'
 import { trpc } from '../trpc'
@@ -29,7 +30,7 @@ const HomePage = () => {
       </div>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
 
-      <div className="flex-center gap-2">
+      <div className="flex-center flex-wrap gap-2">
         {userList.data?.map((user) => (
           <button
             type="button"
@@ -44,9 +45,15 @@ const HomePage = () => {
       <button
         type="button"
         onClick={async () => {
+          if (userList.data && userList.data?.length >= 20) {
+            toast.error('You have reached the maximum number of users')
+            return
+          }
+
           await createUser.mutateAsync({ name: `User ${(Math.random() * 100).toFixed(0)}` })
           await userList.refetch()
         }}
+        disabled={userList.isPending || !userList.data}
         className="border-gray"
       >
         Create random user

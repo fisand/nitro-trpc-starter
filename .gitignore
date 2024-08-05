@@ -40,3 +40,10 @@ yarn-error.log*
 # edit
 .idea
 .vscode
+
+# eslint
+.eslintcache
+
+# output
+output
+.output
