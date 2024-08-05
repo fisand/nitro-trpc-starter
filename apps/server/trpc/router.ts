@@ -1,26 +1,31 @@
+import { PrismaClient } from '@prisma/client'
 import { initTRPC } from '@trpc/server'
 import { z } from 'zod'
 
-import { db } from '../db'
+const prisma = new PrismaClient()
 
 export const t = initTRPC.create()
 
 export const appRouter = t.router({
-  userList: t.procedure.query(() => {
-    const users = db.user.findMany()
+  userList: t.procedure.query(async () => {
+    const users = await prisma.user.findMany()
     return users
   }),
-  userById: t.procedure.input(z.string()).query((opts) => {
+  userByName: t.procedure.input(z.string()).query(async (opts) => {
     const { input } = opts
-    const user = db.user.findById(input)
+    const user = await prisma.user.findFirst({
+      where: {
+        name: input,
+      },
+    })
     return user
   }),
-  userCreate: t.procedure.input(z.object({ name: z.string().min(1) })).mutation((opts) => {
-    const { input } = opts
-    const user = db.user.create(input)
+  // userCreate: t.procedure.input(z.object({ name: z.string().min(1) })).mutation((opts) => {
+  //   const { input } = opts
+  //   const user = db.user.create(input)
 
-    return user
-  }),
+  //   return user
+  // }),
 })
 
 export type AppRouter = typeof appRouter

@@ -4,11 +4,14 @@
   "scripts": {
     "build": "nitro build",
     "dev": "nitro dev",
+    "generate": "prisma generate",
     "prepare": "nitro prepare",
     "preview": "node .output/server/index.mjs"
   },
   "dependencies": {
+    "@prisma/client": "5.17.0",
     "@trpc/server": "11.0.0-rc.477",
+    "prisma": "^5.17.0",
     "trpc-nitro-adapter": "^0.7.3",
     "zod": "^3.23.8"
   },
