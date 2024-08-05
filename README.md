@@ -1,4 +1,8 @@
 # nitro + trpc
 
-- trpc v10
-- react-query v4
+- nitro
+- prisma
+- trpc
+- react-query
+- react
+- vite
