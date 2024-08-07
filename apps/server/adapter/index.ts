@@ -1,9 +1,12 @@
-import { type AnyTRPCRouter, TRPCError } from '@trpc/server'
-import { incomingMessageToRequest, type IncomingMessageWithBody } from '@trpc/server/adapters/node-http'
+import type { AnyTRPCRouter } from '@trpc/server'
+import { TRPCError } from '@trpc/server'
+import type { IncomingMessageWithBody } from '@trpc/server/adapters/node-http'
+import { incomingMessageToRequest } from '@trpc/server/adapters/node-http'
 import { resolveResponse } from '@trpc/server/http'
-import { type EventHandlerRequest, type H3Event, readBody, setHeader, setResponseStatus } from 'h3'
+import type { EventHandlerRequest, H3Event } from 'h3'
+import { readBody, setHeader, setResponseStatus } from 'h3'
 
-const getPath = (event: H3Event): string => {
+function getPath(event: H3Event): string {
   const { params } = event.context
 
   if (typeof params?.trpc === 'string') {
@@ -21,11 +24,11 @@ const getPath = (event: H3Event): string => {
   })
 }
 
-export const createNitroAdapter = (options: {
+export function createNitroAdapter(options: {
   router: AnyTRPCRouter
   createContext?: (event: H3Event<EventHandlerRequest>) => Promise<any>
   onError?: (...args: any[]) => void
-}) => {
+}) {
   return defineEventHandler(async (event) => {
     const path = getPath(event)
     const incomingMessage = event.node.req as IncomingMessageWithBody
@@ -50,12 +53,12 @@ export const createNitroAdapter = (options: {
 
     setResponseStatus(event, status)
 
-    headers &&
-      Object.keys(headers).forEach((key) => {
-        if (headers[key]) {
-          setHeader(event, key, headers[key]!)
-        }
-      })
+    headers
+    && Object.keys(headers).forEach((key) => {
+      if (headers[key]) {
+        setHeader(event, key, headers[key]!)
+      }
+    })
 
     return body
   })

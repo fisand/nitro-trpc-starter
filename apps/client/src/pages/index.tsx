@@ -3,7 +3,7 @@ import { toast } from 'sonner'
 
 import { trpc } from '../trpc'
 
-const HomePage = () => {
+function HomePage() {
   const userList = trpc.userList.useQuery()
   const createUser = trpc.userCreate.useMutation()
   const deleteUser = trpc.userDelete.useMutation()
@@ -19,7 +19,7 @@ const HomePage = () => {
       >
         <div className="mx-auto h-full flex items-center justify-between container lt-sm:px-4">
           <span className="flex items-center gap-1.5 text-lg font-500">
-            <span className="i-devicon-plain:trpc h-5.5 w-5.5"></span>
+            <span className="i-devicon-plain:trpc h-5.5 w-5.5" />
             Nitro + tRPC
           </span>
 
@@ -29,7 +29,7 @@ const HomePage = () => {
             target="_blank"
             className="flex-col-center"
           >
-            <span className="i-simple-icons:github h-5.5 w-5.5 cursor-pointer transition-all hover:scale-105"></span>
+            <span className="i-simple-icons:github h-5.5 w-5.5 cursor-pointer transition-all hover:scale-105" />
           </a>
         </div>
       </motion.div>
@@ -63,7 +63,7 @@ const HomePage = () => {
                       await userList.refetch()
                     }}
                   >
-                    <span className="i-lucide:x h-3.5 w-3.5 text-primary-foreground"></span>
+                    <span className="i-lucide:x h-3.5 w-3.5 text-primary-foreground" />
                   </span>
                   {user.name}
                 </Button>
@@ -107,7 +107,7 @@ const HomePage = () => {
               {createUser.isPending ? (
                 <span className="i-lucide:loader-circle mr-1 h-4 w-4 animate-spin" />
               ) : (
-                <span className="i-lucide:plus mr-1 h-4 w-4 text-primary-foreground"></span>
+                <span className="i-lucide:plus mr-1 h-4 w-4 text-primary-foreground" />
               )}
               New
             </Button>
