@@ -21,6 +21,10 @@ export const appRouter = t.router({
     return user
   }),
   userCreate: t.procedure.input(z.object({ name: z.string().min(1) })).mutation(async (opts) => {
+    if ((await prisma.user.findMany()).length >= 6) {
+      return new Error('Too many users')
+    }
+
     const { input } = opts
 
     const user = await prisma.user.create({

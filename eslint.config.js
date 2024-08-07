@@ -6,12 +6,11 @@ export default defineConfig({
   restrictedSyntax: ['jsx', 'tsx'],
   strict: true,
 }, {
-  files: ['**/*.{ts,tsx}'],
   ...unocss,
 }, {
-  files: ['**/*.{ts,tsx}'],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'error',
+    'react-refresh/only-export-components': 'off',
   },
 })

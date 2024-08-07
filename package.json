@@ -17,6 +17,7 @@
     "preview": "concurrently -n preview -c \"green\" \"node ./scripts/preview.cjs\""
   },
   "devDependencies": {
+    "@typescript-eslint/utils": "8.0.1",
     "@unocss/eslint-config": "^0.61.9",
     "concurrently": "^8.2.2",
     "copyfiles": "^2.4.1",
