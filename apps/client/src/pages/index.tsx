@@ -129,9 +129,7 @@ function HomePage() {
             <span className="i-devicon-plain:trpc h-5 w-5" />
           </a>
         </div>
-        <a href="https://github.com/zouhangwithsweet" target="_blank" rel="noopener noreferrer" className="flex-center justify-end pr-4 text-sm underline">
-          @zouhang
-        </a>
+        <span />
       </motion.div>
     </div>
   )
