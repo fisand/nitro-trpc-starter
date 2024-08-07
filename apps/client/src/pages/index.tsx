@@ -11,7 +11,7 @@ function HomePage() {
   const [name, setName] = useState('')
 
   return (
-    <div className="h-screen w-screen gap-5">
+    <div className="h-screen w-screen flex flex-col gap-5">
       <motion.div
         initial={{ opacity: 0, y: -6 }}
         animate={{ opacity: 1, y: 0 }}
@@ -33,7 +33,7 @@ function HomePage() {
           </a>
         </div>
       </motion.div>
-      <div className="mx-auto w-100 lt-sm:px-4">
+      <div className="mx-auto w-100 flex-1 lt-sm:(w-full px-4)">
         <div className="flex items-center gap-3 pb-5 pt-10">
           <AnimatePresence>
             {userList.data?.map((user, index) => (
@@ -114,6 +114,25 @@ function HomePage() {
           </motion.div>
         )}
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="grid grid-cols-3 h-14 border-t border-t-1 border-border"
+      >
+        <span />
+        <div className="mx-auto h-full flex-center gap-2 lt-sm:px-4">
+          <a href="https://nitro.unjs.io/" target="_blank" rel="noreferrer noopener">
+            <img src="https://nitro.unjs.io/icon.svg" alt="nitro" title="nitro" className="h-5 w-5" />
+          </a>
+          <a href="https://trpc.io/" target="_blank" rel="noreferrer noopener" className="flex-col-center">
+            <span className="i-devicon-plain:trpc h-5 w-5" />
+          </a>
+        </div>
+        <a href="https://github.com/zouhangwithsweet" target="_blank" rel="noopener noreferrer" className="flex-center justify-end pr-4 text-sm underline">
+          @zouhang
+        </a>
+      </motion.div>
     </div>
   )
 }
