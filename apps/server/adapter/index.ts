@@ -4,29 +4,19 @@ import { resolveResponse } from '@trpc/server/http'
 import { type EventHandlerRequest, type H3Event, readBody, setHeader, setResponseStatus } from 'h3'
 
 const getPath = (event: H3Event): string => {
-  const params = event.context.params
+  const { params } = event.context
 
-  if (!params) {
-    // Throw an error if the trpc parameter is not a string or an array:
-    throw new TRPCError({
-      code: 'INTERNAL_SERVER_ERROR',
-      message: 'Please ensure that the trpc parameter is defined in your routes file e.g., ./routes/[trpc].ts',
-      cause: 'Nitro Routing Configuration',
-    })
-  }
-
-  if (typeof params.trpc === 'string') {
+  if (typeof params?.trpc === 'string') {
     return params.trpc
   }
 
-  if (typeof params.trpc === 'string') {
-    return params.trpc
+  if (params?.trpc && Array.isArray(params.trpc)) {
+    return (params.trpc as string[]).join('/')
   }
 
-  // Throw an error if the trpc parameter is not a string or an array:
   throw new TRPCError({
     code: 'INTERNAL_SERVER_ERROR',
-    message: 'Please ensure that the trpc parameter is defined in your routes file e.g., ./routes/[trpc].ts',
+    message: 'Query "trpc" not found - is the file named `[trpc]`.ts or `[...trpc].ts`?',
     cause: 'Nitro Routing Configuration',
   })
 }
