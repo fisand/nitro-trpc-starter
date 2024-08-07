@@ -31,6 +31,15 @@ export const appRouter = t.router({
 
     return user
   }),
+  userDelete: t.procedure.input(z.number()).mutation(async (opts) => {
+    const { input } = opts
+    const user = await prisma.user.delete({
+      where: {
+        id: input,
+      },
+    })
+    return user
+  }),
 })
 
 export type AppRouter = typeof appRouter

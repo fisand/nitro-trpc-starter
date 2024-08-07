@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { toast } from 'sonner'
 
 import { trpc } from '../trpc'
@@ -6,6 +6,7 @@ import { trpc } from '../trpc'
 const HomePage = () => {
   const userList = trpc.userList.useQuery()
   const createUser = trpc.userCreate.useMutation()
+  const deleteUser = trpc.userDelete.useMutation()
 
   const [name, setName] = useState('')
 
@@ -33,27 +34,42 @@ const HomePage = () => {
         </div>
       </motion.div>
       <div className="mx-auto w-100 lt-sm:px-4">
-        <div className="flex items-center gap-2 pb-5 pt-10">
-          {userList.data?.map((user, index) => (
-            <motion.span
-              key={user.id}
-              custom={index}
-              initial="hidden"
-              animate="visible"
-              variants={{
-                visible: (i: number) => ({
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    delay: (i + 0.05) * 0.05,
-                  },
-                }),
-                hidden: { opacity: 0, y: 10 },
-              }}
-            >
-              <Button>{user.name}</Button>
-            </motion.span>
-          ))}
+        <div className="flex items-center gap-3 pb-5 pt-10">
+          <AnimatePresence>
+            {userList.data?.map((user, index) => (
+              <motion.span
+                key={user.id}
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={{
+                  visible: (i: number) => ({
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      delay: (i + 0.05) * 0.05,
+                    },
+                  }),
+                  hidden: { opacity: 0, y: 10 },
+                }}
+              >
+                <Button className="group relative">
+                  <span
+                    className="pointer-events-none absolute right--1.5 top--1.5 flex-col-center rounded-full bg-primary op-0 group-hover:(pointer-events-auto op-100)"
+                    onClick={async (e) => {
+                      e.stopPropagation()
+                      await deleteUser.mutateAsync(user.id)
+                      await userList.refetch()
+                    }}
+                  >
+                    <span className="i-lucide:x h-3.5 w-3.5 text-primary-foreground"></span>
+                  </span>
+                  {user.name}
+                </Button>
+              </motion.span>
+            ))}
+          </AnimatePresence>
         </div>
         {!userList.isPending && (
           <motion.div
