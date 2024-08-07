@@ -8,18 +8,12 @@ import { trpc } from './trpc/index.ts'
 
 import '@unocss/reset/tailwind.css'
 import 'virtual:uno.css'
-import './index.css'
+import './assets/styles/index.css'
 
 const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: '/api',
-      // You can pass any HTTP headers you wish here
-      headers() {
-        return {
-          // Authorization: `Bearer ${localStorage.getItem('token')}`,
-        }
-      },
     }),
   ],
 })
