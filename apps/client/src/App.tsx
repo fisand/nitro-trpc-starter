@@ -15,7 +15,7 @@ export function App() {
   return (
     <>
       {useRoutes([...routes, { path: '*', element: <Redirect to="/" /> }])}
-      <Toaster richColors />
+      <Toaster position="top-center" />
     </>
   )
 }

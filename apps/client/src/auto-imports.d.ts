@@ -6,6 +6,7 @@
 export {}
 declare global {
   const Button: typeof import('./components/ui/button')['Button']
+  const Input: typeof import('./components/ui/input')['Input']
   const buttonVariants: typeof import('./components/ui/button')['buttonVariants']
   const createRef: typeof import('react')['createRef']
   const forwardRef: typeof import('react')['forwardRef']

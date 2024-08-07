@@ -6,6 +6,8 @@ const HomePage = () => {
   const userList = trpc.userList.useQuery()
   const createUser = trpc.userCreate.useMutation()
 
+  const [name, setName] = useState('')
+
   return (
     <div className="h-screen w-screen gap-5">
       <div className="h-14 border-b border-b-1 border-border">
@@ -25,22 +27,43 @@ const HomePage = () => {
           </a>
         </div>
       </div>
-      <div className="mx-auto container lt-sm:px-4">
-        <div className="flex flex-center gap-2 py-5">
+      <div className="mx-auto w-100 lt-sm:px-4">
+        <div className="flex items-center gap-2 pb-5 pt-10">
           {userList.data?.map((user) => <Button key={user.id}>{user.name}</Button>)}
+        </div>
+        <div className="flex items-center gap-2">
+          <Input
+            type="text"
+            maxLength={5}
+            value={name}
+            onInput={(e) => {
+              setName((e.target as HTMLInputElement).value)
+            }}
+            placeholder="Name"
+            className="w-40"
+          />
           <Button
             onClick={async () => {
-              if (userList.data && userList.data?.length >= 20) {
+              if (!name) {
+                toast.error('Name is required')
+                return
+              }
+              if (userList.data && userList.data?.length >= 6) {
                 toast.error('You have reached the maximum number of users')
                 return
               }
 
-              await createUser.mutateAsync({ name: `User ${(Math.random() * 100).toFixed(0)}` })
+              await createUser.mutateAsync({ name })
+              setName('')
               await userList.refetch()
             }}
-            disabled={userList.isPending || !userList.data}
+            disabled={userList.isPending || !userList.data || createUser.isPending}
           >
-            <span className="i-lucide:plus h-4 w-4 text-primary-foreground"></span>
+            {createUser.isPending ? (
+              <span className="i-lucide:loader-circle mr-1 h-4 w-4 animate-spin" />
+            ) : (
+              <span className="i-lucide:plus mr-1 h-4 w-4 text-primary-foreground"></span>
+            )}
             New
           </Button>
         </div>
