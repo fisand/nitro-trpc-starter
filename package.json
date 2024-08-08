@@ -2,6 +2,7 @@
   "name": "nitro-trpc",
   "type": "module",
   "version": "1.0.0",
+  "packageManager": "pnpm@9.7.0",
   "description": "",
   "author": "",
   "license": "ISC",
@@ -17,13 +18,10 @@
     "preview": "concurrently -n preview -c \"green\" \"node ./scripts/preview.cjs\""
   },
   "devDependencies": {
-    "@typescript-eslint/utils": "8.0.1",
-    "@unocss/eslint-config": "^0.61.9",
     "concurrently": "^8.2.2",
     "copyfiles": "^2.4.1",
     "eslint": "^9.8.0",
-    "eslint-config-hyoban": "^3.0.1",
-    "eslint-plugin-react-hooks": "5.1.0-rc-187dd6a7-20240806",
+    "eslint-config-hyoban": "^3.1.0",
     "rimraf": "^6.0.1",
     "unocss": "^0.61.9",
     "unocss-preset-animations": "^1.1.0",
