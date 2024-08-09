@@ -64,6 +64,7 @@ function HomePage() {
                 <button
                   type="button"
                   className="ml-auto flex-col-center rounded bg-primary"
+                  disabled={updateUserStatus.isPending}
                   onClick={async () => {
                     await updateUserStatus.mutateAsync({
                       status: user.status === 1 ? 0 : 1,
@@ -80,6 +81,7 @@ function HomePage() {
                 <button
                   type="button"
                   className="ml-2 flex-col-center rounded bg-primary"
+                  disabled={deleteUser.isPending}
                   onClick={async () => {
                     await deleteUser.mutateAsync(user.id)
                     await userList.refetch()

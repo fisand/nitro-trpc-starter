@@ -30,6 +30,7 @@ export const appRouter = t.router({
     const user = await prisma.user.create({
       data: {
         name: input.name,
+        status: 1,
       },
     })
 
