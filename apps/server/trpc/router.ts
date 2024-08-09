@@ -35,6 +35,18 @@ export const appRouter = t.router({
 
     return user
   }),
+  userUpdateStatus: t.procedure.input(z.object({ id: z.number(), status: z.number() })).mutation(async (opts) => {
+    const { input } = opts
+    const user = await prisma.user.update({
+      where: {
+        id: input.id,
+      },
+      data: {
+        status: Math.min(1, Math.max(0, input.status)),
+      },
+    })
+    return user
+  }),
   userDelete: t.procedure.input(z.number()).mutation(async (opts) => {
     const { input } = opts
     const user = await prisma.user.delete({

@@ -6,6 +6,7 @@ import { trpc } from '../trpc'
 function HomePage() {
   const userList = trpc.userList.useQuery()
   const createUser = trpc.userCreate.useMutation()
+  const updateUserStatus = trpc.userUpdateStatus.useMutation()
   const deleteUser = trpc.userDelete.useMutation()
 
   const [name, setName] = useState('')
@@ -34,10 +35,11 @@ function HomePage() {
         </div>
       </motion.div>
       <div className="mx-auto w-100 flex-1 lt-sm:(w-full px-4)">
-        <div className="flex items-center gap-3 pb-5 pt-10">
+        <div className="flex flex-col gap-3 pb-5 pt-10">
           <AnimatePresence>
             {userList.data?.map((user, index) => (
               <motion.span
+                layout
                 key={user.id}
                 custom={index}
                 initial="hidden"
@@ -53,26 +55,45 @@ function HomePage() {
                   }),
                   hidden: { opacity: 0, y: 10 },
                 }}
+                className="flex-center justify-between"
               >
-                <Button className="group relative">
-                  <span
-                    className="pointer-events-none absolute right--1.5 top--1.5 flex-col-center rounded-full bg-primary op-0 group-hover:(pointer-events-auto op-100)"
-                    onClick={async (e) => {
-                      e.stopPropagation()
-                      await deleteUser.mutateAsync(user.id)
-                      await userList.refetch()
-                    }}
-                  >
-                    <span className="i-lucide:x h-3.5 w-3.5 text-primary-foreground" />
-                  </span>
+                <Button className="relative w-30 capitalize">
                   {user.name}
                 </Button>
+
+                <button
+                  type="button"
+                  className="ml-auto flex-col-center rounded bg-primary"
+                  onClick={async () => {
+                    await updateUserStatus.mutateAsync({
+                      status: user.status === 1 ? 0 : 1,
+                      id: user.id,
+                    })
+                    await userList.refetch()
+                  }}
+                >
+                  {user.status === 1 ? <span className="i-lucide:square h-5 w-5 text-primary-foreground" />
+                    : <span className="i-lucide:square-check h-5 w-5 text-primary-foreground" />}
+
+                </button>
+
+                <button
+                  type="button"
+                  className="ml-2 flex-col-center rounded bg-primary"
+                  onClick={async () => {
+                    await deleteUser.mutateAsync(user.id)
+                    await userList.refetch()
+                  }}
+                >
+                  <span className="i-lucide:x h-5 w-5 text-primary-foreground" />
+                </button>
               </motion.span>
             ))}
           </AnimatePresence>
         </div>
         {!userList.isPending && (
           <motion.div
+            layout
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-2"
